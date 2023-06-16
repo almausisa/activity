@@ -102,7 +102,7 @@
 					font-size: 12px;
 					margin: 8px 0 0;
 				}
-				.received_withd_msg { width: 57%;}
+				.received_withd_msg { width: 57%; position: relative;}
 				.mesgs {
 					float: left;
 					padding: 30px 15px 0 25px;
@@ -117,12 +117,32 @@
 					padding: 5px 10px 5px 12px;
 					width:100%;
 				}
-				.outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
+				.outgoing_msg{ 
+					overflow:hidden; 
+					margin:26px 0 26px;
+					position: relative;
+				}
 				.sent_msg {
 					float: right;
 					width: 46%;
 				}
 
+				.send_msg, .lnkRmoveMessage {
+					position: absolute;
+					top:8px;
+					right: 8px;
+					color: #c4c4c4;
+					font-size: 10px;
+				}
+
+				.lnkRemoveIncoming{
+					font-size: 10px;
+					color: #c4c4c4;
+					position: absolute;
+					top: 8px;
+					right: 8px;
+
+				}
 
 				.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
 				.msg_send_btn {
@@ -156,7 +176,7 @@
 
 
 			<h3 class=" text-center">Messaging</h3>
-			
+
 			<div class="messaging">
 				<div class="inbox_msg">
 					<div class="inbox_people">
@@ -220,16 +240,7 @@
 											id="btnSend_id"
 											data-convo-id = ""
 											data-to-id = ""
-
-											<?php
-												if($logged_in){
-													echo 'data-current-id= "'. $current_user['id'] .'"';
-												}else{
-													echo 'data-current-id =""';
-												}
-											?>
-
-										
+											<?php if($logged_in){echo 'data-current-id= "'. $current_user['id'] .'"';}else{echo 'data-current-id =""';}?>
 											data-limit = ""
 											data-offset = ""
 										><i class="fa-regular fa-paper-plane"></i>&nbsp;Send</button>
@@ -303,11 +314,6 @@
 							let return_data = JSON.parse(response);
 							let current_id = $("#btnSend_id").attr("data-current-id");
 
-							if(return_data == ""){
-								location.href = "activity/users/login";
-							}
-
-
 							console.log(return_data);
 
 							$("#loadingModal_id").hide();
@@ -319,7 +325,8 @@
 									// alert("pareho hra!");
 									let msg = "<div class = 'outgoing_msg'>"+
 													"<div class = 'sent_msg'>"+
-														"<p>"+ return_data[x]['Message']['message'] +"</p>"+
+														"<p>"+ return_data[x]['Message']['message'] + "</p>"+
+														"<a href = '#'  class = 'lnkRmoveMessage' data-id = '"+ return_data[x]['Message']['id']  +"'><i class='fa-solid fa-xmark'></i></a>" +
 														"<span class = 'time_date'>"+ return_data[x]['Message']['created'] +"</span>"+
 													"</div>"+
 											  "</div>";
@@ -367,6 +374,7 @@
 								let msg = "<div class = 'outgoing_msg'>"+
 												"<div class = 'sent_msg'>"+
 													"<p>"+ params['message'] +"</p>"+
+													"<a href = '#'  class = 'lnkRmoveMessage' data-id = '"+ return_data['msg_id']  +"'><i class='fa-solid fa-xmark'></i></a>" +
 													"<span class = 'time_date'>Now</span>"+
 												"</div>"+
 											"</div>";
@@ -432,6 +440,7 @@
 										let msg = "<div class = 'outgoing_msg'>"+
 														"<div class = 'sent_msg'>"+
 															"<p>"+ msg_data[x]['Message']['message'] +"</p>"+
+															"<a href = '#'  class = 'lnkRmoveMessage' data-id = '"+ msg_data[x]['Message']['id']  +"'><i class='fa-solid fa-xmark'></i></a>" +
 															"<span class = 'time_date'>"+ msg_data[x]['Message']['created'] +"</span>"+
 														"</div>"+
 												"</div>";
@@ -457,6 +466,35 @@
 				}
 
 
+				//remove message click function
+				$(document).ready(function () {
+					$('.mesgs').on("click"," div .lnkRmoveMessage, .lnkRemoveIncoming", function () {
+						let params = { 'msg_id' :  $(this).attr("data-id") };
+
+						let response = remove_message(params);
+					});	
+				});
+
+				function remove_message(param_list){
+					let pass = false;
+
+					$.ajax({
+						type: "GET",
+						url: "chats/removeMessage",
+						data: param_list,
+						success: function (response) {
+							let return_data = JSON.parse(response);
+
+							// alert(return_data['status']);
+
+							if(return_data['status']==1){
+								$(".mesgs a[data-id='"+ param_list['msg_id'] +"']").parent().remove();
+							}else{
+								alert("Error removing message");
+							}
+						}
+					});
+				}
 
 
 

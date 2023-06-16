@@ -111,12 +111,24 @@
             $this->create(); 
             $this->save($new_data);
 
+            #get new msg id
+            $msg_id = $this->getLastInsertID();
+
             return array(
-                'status'=>'1'
+                'status'=>1,
+                'msg_id'=>$msg_id
             );
         }
 
 
+        #for removing message from database
+        function remove_message($msg_id){
+            $this->delete($msg_id);
+
+            return array(
+                'status'=>'1'
+            );
+        }
        
 
 

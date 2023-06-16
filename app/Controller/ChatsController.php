@@ -144,6 +144,28 @@
         }
 
 
+        function removeMessage(){
+            $this->layout  = 'ajax';
+            $this->autoRender = false;
+
+            #load model
+            $this->loadModel('Message');
+
+            #get passed data
+            $form_data = $this->request->query;
+
+            // echo '<pre>';
+            // var_dump($form_data);
+            // echo '</pre>';
+
+            // die();
+
+            $response = $this->Message->remove_message($form_data['msg_id']);
+            
+            echo json_encode($response);
+        }
+
+
 
 
 
