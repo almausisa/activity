@@ -203,12 +203,14 @@
 
 <?php
 						foreach($contacts as $key => $val){
+							$date = strtotime($val['created']);
+
 							echo '
 							<div class="chat_list" data-to-id = "'. $val['id'] .'" data-convo-id = "'. $val['convo_id'] .'" data-msg-href = "' . $this->Html->url(['action'=>'getChat']) .  '">
 								<div class="chat_people">
 									<div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
 									<div class="chat_ib">
-									<h5 class = "contact-name">'. $val['firstname'] .' ' . $val['lastname'] .' <span class="chat_date">Dec 25</span></h5>
+									<h5 class = "contact-name">'. $val['firstname'] .' ' . $val['lastname'] .' <span class="chat_date">'. date('M d',$date) .'</span></h5>
 
 									<p class = "chat-username">| '. $val['username'].' |</p>
 									<p>'. $val['last_message'] .'</p>

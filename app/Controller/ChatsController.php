@@ -25,18 +25,6 @@
 
             $data = $this->User->getContact_list($user_id);
 
-            // $test = $this->Message->getMessagesBy_convo(1);
-
-
-            // $chat = $this->Message->getLastMsg_byID($user_id,'32');
-
-            // $recipients = $this->Recipient->getRecipient($user_id);
-
-            // echo '<pre>';
-            // var_dump($test);
-            // echo '</pre>';
-            // die();
-
             $contacts = array();
 
             foreach($data as $key => $contact_val){
@@ -50,9 +38,8 @@
 
                 if(!empty($last_msg)){
                     $msg = $last_msg['Message']['message'];
-                    $msg_date = $last_msg['Message']['message'];
+                    $msg_date = $last_msg['Message']['created'];
                     $convo_id = $last_msg['Conversation']['id'];
-                    
                 }
                 
                 $tempData = array(
