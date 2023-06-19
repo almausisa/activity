@@ -9,10 +9,13 @@
 
             $this->loadModel('Post');
 
+            #get user id
+            $user_id = $this->Auth->user('id');
+
             $logged_in = $this->Auth->loggedIn();
 
             if($logged_in){
-                $data = $this->Post->getPostLists();
+                $data = $this->Post->getPostLists($user_id);
             }else{
                 $data = array();
             }
@@ -25,11 +28,23 @@
         function add(){
             #call model to be used
             $this->loadModel('Post');
+
+            #get user id
+            $user_id = $this->Auth->user('id');
             
             if($this->request->is('post')){
                 $form_data = $this->request->data;
+        
+                $new_data = array(
+                    'Post'=>array(
+                        'user_id'=>$user_id,
+                        'title'=>$form_data['Post']['title'],
+                        'body'=>$form_data['Post']['body']
+                    )
+                );
 
-                $this->Post->new_post($form_data);
+
+                $this->Post->new_post($new_data);
 
                 $this->Flash->success(__('Successfully added new post!'));
 

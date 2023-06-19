@@ -5,10 +5,14 @@
     class Post extends AppModel{
 
 
-        function getPostLists(){
-            $data = $this->find('all',array('order' => ['id'=>'DESC'],
-                                            'limit' => 5)
-                               );
+        function getPostLists($user_id){
+            $data = $this->find('all',array(
+                'conditions'=>array(
+                    'user_id'=>$user_id
+                ),
+                'order' => ['id'=>'DESC'],
+                'limit' => 5
+            ));
 
             return $data;
         }
@@ -21,6 +25,12 @@
         } 
 
         function new_post($data){
+
+            // echo '<pre>';
+            // var_dump($data);
+            // echo '</pre>';
+            // die();
+
             $this->create();
             $this->save($data);
         }

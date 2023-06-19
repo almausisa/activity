@@ -7,6 +7,7 @@
         
         <?=$this->Form->create('Post')?>
         <?=$this->Form->input('id',['type'=>'hidden'])?>
+        <?=$this->Form->input('user_id',['type'=>'hidden'])?>
         <?=$this->Form->input('title',['class'=>'form-control'])?>
         <?=$this->Form->input('body',['class'=>'form-control'])?>
         
