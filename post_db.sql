@@ -46,7 +46,7 @@ CREATE TABLE `messages` (
   `message` text DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `messages` */
 
@@ -84,7 +84,8 @@ insert  into `messages`(`id`,`convo_id`,`sender_id`,`message`,`created`) values
 (31,1,33,'maupay nala nga na retrieve ko pa an ak project hahaha','2023-06-15 11:44:09'),
 (32,1,31,'keanu na? anu an nahitabo? haha','2023-06-15 11:44:22'),
 (33,1,33,'ge buloki kc dman! haha... ','2023-06-15 11:44:34'),
-(34,1,31,'haha ok gdla it.. learn from your mistakes nala hahaha','2023-06-15 11:47:22');
+(34,1,31,'haha ok gdla it.. learn from your mistakes nala hahaha','2023-06-15 11:47:22'),
+(35,1,33,'anu na?','2023-06-19 05:55:49');
 
 /*Table structure for table `posts` */
 
@@ -147,8 +148,8 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`firstname`,`middlename`,`lastname`,`username`,`password`,`role`,`created`,`modified`,`file`) values 
-(31,'Al','Buenafe','Mausisa','fdc.almausisa@gmail.com','$2a$10$OMKx.qVnY8p1J.JmbD/pU.wIWjnFPUqLt71w3zbuXVRjl6stdNE1q','0','2023-06-14 03:56:11','2023-06-14 03:56:11',NULL),
-(33,'Milbert','Apar','Apura','milbert123','$2a$10$ZwxNYQhiBZ42An3Ckw7fzu3l3a6w6JK.ygOjwta5fQvIuKnf3gDt.','0','2023-06-14 05:07:48','2023-06-14 05:07:48',NULL),
+(31,'Al','Buenafe','Mausisa','fdc.almausisa@gmail.com','$2a$10$OMKx.qVnY8p1J.JmbD/pU.wIWjnFPUqLt71w3zbuXVRjl6stdNE1q','0','2023-06-14 03:56:11','2023-06-14 03:56:11','jpg'),
+(33,'Milbert','Apar','Apura','milbert123','$2a$10$ZwxNYQhiBZ42An3Ckw7fzu3l3a6w6JK.ygOjwta5fQvIuKnf3gDt.','0','2023-06-14 05:07:48','2023-06-14 05:07:48','png'),
 (34,'Joel','Badillo','Almejas','joel123','$2a$10$ozl/czaO0868fDAeSrwi3etEJU5pHF6AHtcx6/nFSFomv/lFzqbO2','0','2023-06-14 05:08:25','2023-06-14 05:08:25',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
