@@ -31,7 +31,7 @@
             }else{
                 $data = array();
             }
-
+            
             $contacts = array();
 
             foreach($data as $key => $contact_val){
@@ -57,7 +57,8 @@
                     'lastname'=>$contact_val['User']['lastname'],
                     'username'=>$contact_val['User']['username'],
                     'last_message'=>$msg,
-                    'created'=>$msg_date
+                    'created'=>$msg_date,
+                    'file'=>$contact_val['User']['file']
                 );
 
                 array_push($contacts, $tempData);
@@ -161,7 +162,7 @@
 
         function search_contacts() {
             $this->layout = 'ajax';
-            $this->autoRender = false;
+            // $this->autoRender = false;
 
             #load models
             $this->loadModel('User');
@@ -204,7 +205,8 @@
                     'lastname'=>$contact_val['User']['lastname'],
                     'username'=>$contact_val['User']['username'],
                     'last_message'=>$msg,
-                    'created'=>$msg_date
+                    'created'=>$msg_date,
+                    'file'=>$contact_val['User']['file']
                 );
 
                 array_push($contacts, $tempData);
@@ -217,7 +219,8 @@
             // echo  '</pre>';
             // die();
 
-            echo json_encode($contacts);
+            // echo json_encode($contacts);
+            $this->set('contacts', $contacts);
         }
 
 

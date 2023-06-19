@@ -206,10 +206,22 @@
 						foreach($contacts as $key => $val){
 							$date = strtotime($val['created']);
 
+							$path = 'img/person/' . $val['id']. '.' . $val['file'];
+
+							if(file_exists(WWW_ROOT . $path )){
+								$img = $this->Html->image('/img/person/' . $val['id'] . '.' . $val['file'],array(
+									'alt'=>'user-img','class'=>'rounded-circle'
+								));
+							}else{
+								$img = "<img src='https://ptetutorials.com/images/user-profile.png' alt='sunil' class = 'rounded-circle'>";
+							}
+							
 							echo '
 							<div class="chat_list" data-to-id = "'. $val['id'] .'" data-convo-id = "'. $val['convo_id'] .'" data-msg-href = "' . $this->Html->url(['action'=>'getChat']) .  '">
 								<div class="chat_people">
-									<div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+									<div class="chat_img">
+										'. $img .'
+									</div>
 									<div class="chat_ib">
 										<h5 class = "contact-name">'. $val['firstname'] .' ' . $val['lastname'] .' <span class="chat_date">'. date('M d',$date) .'</span></h5>
 
@@ -261,7 +273,7 @@
 				//for search change event
 				$(document).ready(function () {
 					let timeoutId;
-					let delay = 1000;// Delay time in milliseconds
+					let delay = 600;// Delay time in milliseconds
 
 					$('#txtSearch_id').on('keydown', function() {
 						clearTimeout(timeoutId); // Clear any previous timeout
@@ -434,6 +446,7 @@
 				}
 
 				function loadMore(params){
+					// $("#loadingModal_id").show();
 
 					$.ajax({
 						type: "GET",
@@ -483,6 +496,8 @@
 									}
 								}
 							}
+							// $("#loadingModal_id").hide();
+
 						}
 					});
 				}
@@ -526,34 +541,11 @@
 						url: "chats/search_contacts",
 						data: param_list,	
 						success: function (response) {
-							let return_data = JSON.parse(response);
+							// let return_data = JSON.parse(response);
 
 							$(".inbox_chat").empty();
-						
-							let contacts = "";
-							
-							for(x=0;x<return_data.length;x++){
-								let chat_date = moment(return_data[x]['created']);
 
-								console.log(chat_date);
-
-
-								let contacts = "<div class = 'chat_list' data-id = '"+ return_data[x]['id'] +"' data-convo-id = '"+ return_data[x]['convo_id'] +"' >"+
-													"<div class = 'chat_people'>"+
-														"<div class = 'chat_img'><img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'> </div>"+
-
-														"<div class = 'chat_ib'>"+
-															"<h5 class = 'contact-name'>"+ return_data[x]['firstname'] + ' ' + return_data[x]['lastname'] + "<span class = 'chat_date'>"+ chat_date.format('MMM DD') +"</span></h5>"+
-
-															"<p class = 'chat-username'>| "+ return_data[x]['username'] +"| </p>"+
-															"<p>"+ return_data[x]['last_message'] +"</p>"+
-														"</div>"+
-													"</div>"
-												"</div>" ;
-								$(".inbox_chat").append(contacts);
-							}
-
-							
+							$(".inbox_chat").append(response);
 							
 							$("#loadingModal_id").hide();
 						}
