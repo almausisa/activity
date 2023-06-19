@@ -46,7 +46,7 @@ CREATE TABLE `messages` (
   `message` text DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `messages` */
 
@@ -80,7 +80,11 @@ insert  into `messages`(`id`,`convo_id`,`sender_id`,`message`,`created`) values
 (27,1,33,'anu nala at diri na axa ak pag message haha.. ','2023-06-15 10:58:06'),
 (28,1,33,'sdfsdf','2023-06-15 10:59:37'),
 (29,1,33,'hoy!','2023-06-15 11:08:48'),
-(30,1,31,'anu na! ahhahaa','2023-06-15 11:09:03');
+(30,1,31,'anu na! ahhahaa','2023-06-15 11:09:03'),
+(31,1,33,'maupay nala nga na retrieve ko pa an ak project hahaha','2023-06-15 11:44:09'),
+(32,1,31,'keanu na? anu an nahitabo? haha','2023-06-15 11:44:22'),
+(33,1,33,'ge buloki kc dman! haha... ','2023-06-15 11:44:34'),
+(34,1,31,'haha ok gdla it.. learn from your mistakes nala hahaha','2023-06-15 11:47:22');
 
 /*Table structure for table `posts` */
 
@@ -128,15 +132,9 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(200) DEFAULT NULL,
   `firstname` varchar(50) DEFAULT NULL,
   `middlename` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) DEFAULT NULL,
-  `position` varchar(50) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `location` varchar(100) DEFAULT NULL,
-  `website` varchar(100) DEFAULT NULL,
-  `hobby` text DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `role` varchar(20) DEFAULT NULL,
@@ -148,10 +146,10 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`code`,`firstname`,`middlename`,`lastname`,`position`,`email`,`location`,`website`,`hobby`,`username`,`password`,`role`,`created`,`modified`,`file`) values 
-(31,NULL,'Al','Buenafe','Mausisa',NULL,NULL,NULL,NULL,NULL,'fdc.almausisa@gmail.com','$2a$10$OMKx.qVnY8p1J.JmbD/pU.wIWjnFPUqLt71w3zbuXVRjl6stdNE1q','0','2023-06-14 03:56:11','2023-06-14 03:56:11',NULL),
-(33,NULL,'Milbert','Apar','Apura',NULL,NULL,NULL,NULL,NULL,'milbert123','$2a$10$ZwxNYQhiBZ42An3Ckw7fzu3l3a6w6JK.ygOjwta5fQvIuKnf3gDt.','0','2023-06-14 05:07:48','2023-06-14 05:07:48',NULL),
-(34,NULL,'Joel','Badillo','Almejas',NULL,NULL,NULL,NULL,NULL,'joel123','$2a$10$ozl/czaO0868fDAeSrwi3etEJU5pHF6AHtcx6/nFSFomv/lFzqbO2','0','2023-06-14 05:08:25','2023-06-14 05:08:25',NULL);
+insert  into `users`(`id`,`firstname`,`middlename`,`lastname`,`username`,`password`,`role`,`created`,`modified`,`file`) values 
+(31,'Al','Buenafe','Mausisa','fdc.almausisa@gmail.com','$2a$10$OMKx.qVnY8p1J.JmbD/pU.wIWjnFPUqLt71w3zbuXVRjl6stdNE1q','0','2023-06-14 03:56:11','2023-06-14 03:56:11',NULL),
+(33,'Milbert','Apar','Apura','milbert123','$2a$10$ZwxNYQhiBZ42An3Ckw7fzu3l3a6w6JK.ygOjwta5fQvIuKnf3gDt.','0','2023-06-14 05:07:48','2023-06-14 05:07:48',NULL),
+(34,'Joel','Badillo','Almejas','joel123','$2a$10$ozl/czaO0868fDAeSrwi3etEJU5pHF6AHtcx6/nFSFomv/lFzqbO2','0','2023-06-14 05:08:25','2023-06-14 05:08:25',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
