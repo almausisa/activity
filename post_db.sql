@@ -46,7 +46,7 @@ CREATE TABLE `messages` (
   `message` text DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `messages` */
 
@@ -85,7 +85,8 @@ insert  into `messages`(`id`,`convo_id`,`sender_id`,`message`,`created`) values
 (32,1,31,'keanu na? anu an nahitabo? haha','2023-06-15 11:44:22'),
 (33,1,33,'ge buloki kc dman! haha... ','2023-06-15 11:44:34'),
 (34,1,31,'haha ok gdla it.. learn from your mistakes nala hahaha','2023-06-15 11:47:22'),
-(35,1,33,'anu na?','2023-06-19 05:55:49');
+(35,1,33,'anu na?','2023-06-19 05:55:49'),
+(36,4,34,'anu na? kamusta na? ','2023-06-19 09:07:27');
 
 /*Table structure for table `posts` */
 
@@ -99,7 +100,7 @@ CREATE TABLE `posts` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `posts` */
 
@@ -113,19 +114,22 @@ insert  into `posts`(`id`,`user_id`,`title`,`body`,`created`,`modified`) values
 (8,NULL,'Coding Blog #4','trying new concept for adding additional fields to post.','2023-06-08 07:06:38','2023-06-08 07:06:38'),
 (9,NULL,'Coding Blog #5','Mjo nakukuha na ung gusto na result pero may kulang pa din. pero malapit na to promise!','2023-06-08 08:34:57','2023-06-08 08:34:57'),
 (10,NULL,'Coding Blog #6','Next is to implement Authentication for user login..\r\n','2023-06-08 08:51:21','2023-06-08 08:51:21'),
-(11,NULL,'sdfsfd','sdfsfsdf','2023-06-08 09:57:53','2023-06-08 09:57:53'),
-(12,NULL,'Coding Blog #7','working on users management for account creation','2023-06-08 10:16:09','2023-06-08 10:16:09'),
-(13,NULL,'Coding Blog #8','trying to finish first user maintenance before proceeding to authentication','2023-06-09 05:12:37','2023-06-09 05:12:37'),
-(14,NULL,'test','test','2023-06-09 10:18:59','2023-06-09 10:18:59'),
-(15,NULL,'test','test','2023-06-12 09:55:57','2023-06-12 09:55:57'),
-(16,NULL,'test','Hello world its already 3:56PM','2023-06-12 09:56:19','2023-06-12 09:56:19'),
-(17,NULL,'test','testing another post at 3:57PM','2023-06-12 09:57:57','2023-06-12 09:57:57'),
-(19,26,'testing another one','hello world at 4:01PM','2023-06-12 10:01:39','2023-06-12 10:01:39'),
-(20,27,'test','test again at 4:03','2023-06-12 10:04:01','2023-06-12 10:04:01'),
-(21,NULL,'test','123','2023-06-13 05:58:43','2023-06-13 05:58:43'),
-(25,NULL,'Post for today! alert 101sss','just finished all the crude files. now is to add authentication for formsss','2023-06-13 10:24:40','2023-06-13 10:54:27'),
-(26,NULL,'test','test','2023-06-13 11:24:55','2023-06-13 11:24:55'),
-(27,NULL,'tests','tests','2023-06-13 11:25:28','2023-06-13 11:29:02');
+(11,31,'sdfsfd','sdfsfsdf','2023-06-08 09:57:53','2023-06-08 09:57:53'),
+(12,31,'Coding Blog #7','working on users management for account creation','2023-06-08 10:16:09','2023-06-08 10:16:09'),
+(13,31,'Coding Blog #8','trying to finish first user maintenance before proceeding to authentication','2023-06-09 05:12:37','2023-06-09 05:12:37'),
+(14,31,'test','test','2023-06-09 10:18:59','2023-06-09 10:18:59'),
+(15,31,'test','test','2023-06-12 09:55:57','2023-06-12 09:55:57'),
+(16,31,'test','Hello world its already 3:56PM','2023-06-12 09:56:19','2023-06-12 09:56:19'),
+(17,31,'test','testing another post at 3:57PM','2023-06-12 09:57:57','2023-06-12 09:57:57'),
+(19,31,'testing another one','hello world at 4:01PM','2023-06-12 10:01:39','2023-06-12 10:01:39'),
+(20,31,'test','test again at 4:03','2023-06-12 10:04:01','2023-06-12 10:04:01'),
+(21,31,'test','123','2023-06-13 05:58:43','2023-06-13 05:58:43'),
+(25,31,'Post for today! alert 101sss','just finished all the crude files. now is to add authentication for formsss','2023-06-13 10:24:40','2023-06-13 10:54:27'),
+(26,31,'test','test','2023-06-13 11:24:55','2023-06-13 11:24:55'),
+(27,31,'tests','tests','2023-06-13 11:25:28','2023-06-13 11:29:02'),
+(34,33,'day 01','debugging code. ','2023-06-19 09:05:03','2023-06-19 09:05:03'),
+(35,34,'day #1','debugging code for posting post','2023-06-19 09:06:03','2023-06-19 09:06:25'),
+(36,33,'day 02','kainan na! haha','2023-06-19 09:12:49','2023-06-19 09:12:49');
 
 /*Table structure for table `users` */
 
@@ -150,7 +154,7 @@ CREATE TABLE `users` (
 insert  into `users`(`id`,`firstname`,`middlename`,`lastname`,`username`,`password`,`role`,`created`,`modified`,`file`) values 
 (31,'Al','Buenafe','Mausisa','fdc.almausisa@gmail.com','$2a$10$OMKx.qVnY8p1J.JmbD/pU.wIWjnFPUqLt71w3zbuXVRjl6stdNE1q','0','2023-06-14 03:56:11','2023-06-14 03:56:11','jpg'),
 (33,'Milbert','Apar','Apura','milbert123','$2a$10$ZwxNYQhiBZ42An3Ckw7fzu3l3a6w6JK.ygOjwta5fQvIuKnf3gDt.','0','2023-06-14 05:07:48','2023-06-14 05:07:48','png'),
-(34,'Joel','Badillo','Almejas','joel123','$2a$10$ozl/czaO0868fDAeSrwi3etEJU5pHF6AHtcx6/nFSFomv/lFzqbO2','0','2023-06-14 05:08:25','2023-06-14 05:08:25',NULL);
+(34,'Joel','Badillo','Almejas','joel123','$2a$10$Zp62JPOtUfzOgTiotjJbguV1MAOH1oMWk6QDZlwKuL1xEutN0tIce','0','2023-06-14 05:08:25','2023-06-19 08:09:39',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
