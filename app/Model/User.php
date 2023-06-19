@@ -62,8 +62,33 @@
         }
 
         function addNew_userinformation($data) {
+            #copy file to variable
+            $file = $data['User']['file'];
+
+            #remove file from form
+            unset($data['User']['file']);
+
             $this->create();
             $this->save($data);
+
+            #get last inserted id of user
+            $latest_id = $this->getLastInsertID();
+
+            $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $target = WWW_ROOT . 'img/person/' . $latest_id . '.'. $ext;
+            $filePath = $target;
+        
+            #for moving actual file
+            move_uploaded_file($file['tmp_name'], $filePath);
+
+            #re update user file for extension
+
+            $new_data = array('User'=>array(
+                'file'=>$ext
+            ));
+
+            $this->id = $latest_id;
+            $this->save($new_data);
 
             return ['status'=>1];
         }
@@ -76,7 +101,27 @@
         }
 
         function remove_userInformation($id){
+            #get first user information 
+            $tempData = $this->find('first', array(
+                'conditions'=>array(
+                    'User.id'=>$id
+                )
+            ));
+
+            #remove user from database
             $this->delete($id);
+
+            #also include uploaded file
+            $file = new File(WWW_ROOT . 'img/person/' . $id . '.' . $tempData['User']['file']);
+
+            if($file->exists()){
+                $file->delete();
+            }
+
+            // echo '<pre>';
+            // var_dump($file);
+            // echo '</pre>';
+            // die();
 
             return array('status'=>1);
         }

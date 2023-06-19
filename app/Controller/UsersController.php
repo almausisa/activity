@@ -23,14 +23,19 @@
             #load model
             $this->loadModel('User');
 
-            
-
             #get data
             $form_data = $this->request->data;
+
+           
+            // echo '<pre>';
+            // var_dump($form_data);
+            // echo '</pre>';
+            // die();
 
             if($this->request->is('post')){
                 #proceed to save information
                 $response = $this->User->addNew_userinformation($form_data);
+
                 if($response['status']==1){
                     $this->Flash->success(__('Successfully Added new user'));
                     $this->redirect(['action'=>'index']);
