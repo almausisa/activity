@@ -94,13 +94,34 @@
 
 
         #get list of contacts but not including itself
-        function getContact_list($id){
+        function getContact_list($id, $search){
             $conditions = array('id !='=>$id);  
 
             $data  = $this->find('all',array(
                 'conditions'=>$conditions
             ));
 
+            return $data;
+        }
+
+        #for searching contact list
+        function search_contacts($user_id, $search){
+            $conditions = array(
+                'CONCAT(User.firstname, " ", User.lastname) LIKE'=>'%' . $search . '%',
+                'not'=>array(
+                    'User.id'=>$user_id
+                )
+            );
+
+            $data = $this->find('all', array(
+                'conditions'=>$conditions
+            ));
+
+            // echo '<pre>';
+            // var_dump($data);
+            // echo '</pre>';
+
+            // die();
 
             return $data;
         }

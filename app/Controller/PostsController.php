@@ -5,12 +5,17 @@
 
         public $helpers  = ['Html','Forms'];
 
-
         public function index() {
 
             $this->loadModel('Post');
 
-            $data = $this->Post->getPostLists();
+            $logged_in = $this->Auth->loggedIn();
+
+            if($logged_in){
+                $data = $this->Post->getPostLists();
+            }else{
+                $data = array();
+            }
 
             $this->set('data', $data);
         }

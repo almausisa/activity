@@ -55,6 +55,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 			//spinner
 			echo $this->Html->css('loadingSpinner.css');
+
+			//moment js
+			echo $this->Html->script('../vendors/moment/moment.js');
 		?>
 	</head>
 	<body>

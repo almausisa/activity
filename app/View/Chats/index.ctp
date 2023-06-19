@@ -186,11 +186,12 @@
 								<h4>Contacts</h4>
 							</div>
 							<div class="srch_bar">
-							<div class="stylish-input-group">
-								<input type="text" class="search-bar"  placeholder="Search" >
-								<span class="input-group-addon">
-								<button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-								</span> </div>
+								<div class="stylish-input-group">
+									<input type="text" class="search-bar"  placeholder="Search" id = "txtSearch_id">
+									<span class="input-group-addon">
+									<button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+									</span> 
+								</div>
 							</div>
 						</div>
 						<!-- for contacts header -->
@@ -210,10 +211,10 @@
 								<div class="chat_people">
 									<div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
 									<div class="chat_ib">
-									<h5 class = "contact-name">'. $val['firstname'] .' ' . $val['lastname'] .' <span class="chat_date">'. date('M d',$date) .'</span></h5>
+										<h5 class = "contact-name">'. $val['firstname'] .' ' . $val['lastname'] .' <span class="chat_date">'. date('M d',$date) .'</span></h5>
 
-									<p class = "chat-username">| '. $val['username'].' |</p>
-									<p>'. $val['last_message'] .'</p>
+										<p class = "chat-username">| '. $val['username'].' |</p>
+										<p>'. $val['last_message'] .'</p>
 									</div>
 								</div>
 							</div>
@@ -257,6 +258,25 @@
     		</div>
 
 			<script>
+				//for search change event
+				$(document).ready(function () {
+					let timeoutId;
+					let delay = 1000;// Delay time in milliseconds
+
+					$('#txtSearch_id').on('keydown', function() {
+						clearTimeout(timeoutId); // Clear any previous timeout
+
+						let params = { 'search' : $(this).val() };
+
+						// Set a new timeout
+						timeoutId = setTimeout(function() {
+							// This code will execute after the delay
+							search_contact(params);
+							// Add your desired actions here
+						}, delay);
+					});
+				});
+			
                 //for textbox enter function
 				$(document).ready(function () {
 					$("#txtMessagebox_id").keydown(function (e) { 
@@ -284,7 +304,7 @@
 
 				//contacts click function
 				$(document).ready(function () {
-					$(".chat_list").click(function (e) { 
+					$(".inbox_chat").on('click',' .chat_list',function (e) { 
 						$(".chat_list").removeClass('active_chat');
 						$(this).addClass('active_chat');
 
@@ -498,6 +518,47 @@
 					});
 				}
 
+				function search_contact(param_list){
+					$("#loadingModal_id").show();
+
+					$.ajax({
+						type: "GET",
+						url: "chats/search_contacts",
+						data: param_list,	
+						success: function (response) {
+							let return_data = JSON.parse(response);
+
+							$(".inbox_chat").empty();
+						
+							let contacts = "";
+							
+							for(x=0;x<return_data.length;x++){
+								let chat_date = moment(return_data[x]['created']);
+
+								console.log(chat_date);
+
+
+								let contacts = "<div class = 'chat_list' data-id = '"+ return_data[x]['id'] +"' data-convo-id = '"+ return_data[x]['convo_id'] +"' >"+
+													"<div class = 'chat_people'>"+
+														"<div class = 'chat_img'><img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'> </div>"+
+
+														"<div class = 'chat_ib'>"+
+															"<h5 class = 'contact-name'>"+ return_data[x]['firstname'] + ' ' + return_data[x]['lastname'] + "<span class = 'chat_date'>"+ chat_date.format('MMM DD') +"</span></h5>"+
+
+															"<p class = 'chat-username'>| "+ return_data[x]['username'] +"| </p>"+
+															"<p>"+ return_data[x]['last_message'] +"</p>"+
+														"</div>"+
+													"</div>"
+												"</div>" ;
+								$(".inbox_chat").append(contacts);
+							}
+
+							
+							
+							$("#loadingModal_id").hide();
+						}
+					});
+				}
 
 
 

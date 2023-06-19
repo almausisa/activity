@@ -23,7 +23,14 @@
 
             $user_id  = $this->Auth->user('id');
 
-            $data = $this->User->getContact_list($user_id);
+            #get user status
+            $logged_in = $this->Auth->loggedIn();
+
+            if($logged_in){
+                $data = $this->User->getContact_list($user_id, '');
+            }else{
+                $data = array();
+            }
 
             $contacts = array();
 
@@ -54,7 +61,7 @@
                 );
 
                 array_push($contacts, $tempData);
-            }
+            }                                                                                                                                                       
 
             // echo '<pre>';
             // var_dump($contacts);
@@ -150,6 +157,67 @@
             $response = $this->Message->remove_message($form_data['msg_id']);
             
             echo json_encode($response);
+        }
+
+        function search_contacts() {
+            $this->layout = 'ajax';
+            $this->autoRender = false;
+
+            #load models
+            $this->loadModel('User');
+            $this->loadModel('Message');
+            $this->loadModel('User');
+
+
+            $logged_in = $this->Auth->loggedIn();
+
+            #get passed data
+            $form_data  = $this->request->query;
+
+            #get logged in user id
+            $user_id  = $this->Auth->user('id');
+
+            $data = $this->User->search_contacts($user_id, $form_data['search']);
+
+            $contacts = array();
+
+            foreach($data as $key => $contact_val){
+                #declare variables
+
+                $msg = "";
+                $msg_date = "";
+                $convo_id = "";
+
+                $last_msg = $this->Message->getLastMsg_byID($user_id, $contact_val['User']['id']);
+
+                if(!empty($last_msg)){
+                    $msg = $last_msg['Message']['message'];
+                    $msg_date = $last_msg['Message']['created'];
+                    $convo_id = $last_msg['Conversation']['id'];
+                }
+                
+                $tempData = array(
+                    'id'=>$contact_val['User']['id'],
+                    'convo_id'=>$convo_id,
+                    'firstname'=>$contact_val['User']['firstname'],
+                    'middlename'=>$contact_val['User']['middlename'],
+                    'lastname'=>$contact_val['User']['lastname'],
+                    'username'=>$contact_val['User']['username'],
+                    'last_message'=>$msg,
+                    'created'=>$msg_date
+                );
+
+                array_push($contacts, $tempData);
+            }     
+            
+            #return as json 
+
+            // echo '<pre>';
+            // var_dump($contacts);
+            // echo  '</pre>';
+            // die();
+
+            echo json_encode($contacts);
         }
 
 
